@@ -1,0 +1,54 @@
+#include <QCoreApplication>
+#include <iostream>
+#include <iomanip>
+#include <string>
+using namespace std;
+int main(int argc, char *argv[])
+{
+    QCoreApplication a(argc, argv);
+    string key;
+    char keyasc;
+    int val;
+    string decodeasc1;
+    string decoded;
+    int decodeasc;
+    int charlength;
+    int ascval;
+    int keylength;
+    int j=-1;
+    cout<<"Attention tous les lettre doivent etre en majuscule"<<endl;
+    cout<<"Entrez la cle de cryptage : ";
+    cin>>key;
+    cout<<"Entrez le mot a decrypte par cette cle : ";
+    cin>>decodeasc1;
+    keylength=key.length();
+    charlength=decodeasc1.size();
+    for(int i=0;i<charlength;i++)
+    {
+        j+=1;
+        if(j>keylength-1)
+        {
+            j=0;
+        }
+        keyasc=int(key[j]);
+        val =keyasc-65;
+        decodeasc=int(decodeasc1[i]);
+        /*if(decodeasc==4210798)
+        {
+            ascval=4210798;
+        }
+        else*/ if((decodeasc+val)>90)
+        {
+            int plus=(decodeasc+val)-90;
+            ascval=65+plus-1;
+        }
+        else
+        {
+            ascval=decodeasc+val;
+        }
+        decoded+=char(ascval);
+    }
+
+    cout<<"Votre mot decripte est : "<<decoded;
+    return a.exec();
+}
